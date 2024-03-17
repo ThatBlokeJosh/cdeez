@@ -1,2 +1,1 @@
-> /dev/null 2>&1 &
-echo $! 
+# Welcome 👋, to cdeez 👀 (nuts 🌰)! - the blazingly 🚀 fast gopher 🐹 powered continuous deployment 🫙 tool 🧰
