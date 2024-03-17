@@ -25,6 +25,7 @@ func Deploy(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&app)
 	cmd := exec.Command("git", "clone", app.Repo, fmt.Sprintf("./apps/%s", app.Name))
 	cmd.Run()
+	Convert(app.Name)
 	pid := CreateApp(app)
 	w.Write([]byte(pid))
 }
