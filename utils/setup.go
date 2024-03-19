@@ -17,6 +17,7 @@ func Startup() {
 func Setup() {
 	Startup()
 	http.HandleFunc("GET /apps", List)
+	http.HandleFunc("GET /apps/stats", Performance)
 	http.HandleFunc("POST /apps", Deploy)
 	http.HandleFunc("PUT /apps", Restart)
 	http.HandleFunc("DELETE /apps", Delete)

@@ -8,8 +8,9 @@ import (
 	"os/exec"
 )
 
-func check(err error) {
+func check(err error, message ...string) {
 	if err != nil {
+		fmt.Println(message)
 		log.Fatal(err)
 	}
 }
@@ -54,4 +55,11 @@ func List(w http.ResponseWriter, r *http.Request) {
 	list, err := json.Marshal(apps)
 	check(err)
 	w.Write(list)
+}
+
+func Performance(w http.ResponseWriter, r *http.Request) {
+	apps := ReadAll()
+	app := App{}
+	json.NewDecoder(r.Body).Decode(&app)
+	w.Write(Stats(apps[app.Name].Pid))
 }
