@@ -1,7 +1,11 @@
+/*
+Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+
+*/
 package main
 
-import "cdeez/utils"
+import "cdeez/cmd"
 
 func main() {
-	utils.Setup()
+	cmd.Execute()
 }
