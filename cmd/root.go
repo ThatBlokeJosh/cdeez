@@ -16,19 +16,25 @@ var cfgFile string
 
 var rootCmd = &cobra.Command{
 	Use:   "cdeez",
-	Short: "CDEEZ (nuts)\nA blazzzzingly fast gopher powered continuous deployment tool",
+	Short: "CDEEZ (nuts)\nA super duper blazzzzingly fast gopher powered continuous deployment tool",
 }
 
 var serveCmd = &cobra.Command{
 	Use: "serve",
+	Short: "Serves the cdeez api (to be used on prod server)",
 	Run: func(cmd *cobra.Command, args []string) {
-		utils.Setup()
+		if len(args) > 0 {
+			utils.Setup(args[0])
+		} else {
+			utils.Setup("")
+		}
 	},
 }
 
 
 var appsCmd = &cobra.Command{
 	Use: "apps",
+	Short: "Display all currently running app names",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(Apps())
 	},
@@ -37,6 +43,7 @@ var appsCmd = &cobra.Command{
 
 var deployCmd = &cobra.Command{
 	Use: "deploy",
+	Short: "Deploy a new app",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(Deploy(args[0], args[1]))
 	},
@@ -45,6 +52,7 @@ var deployCmd = &cobra.Command{
 
 var statsCmd = &cobra.Command{
 	Use: "stats",
+	Short: "Display currently used resources for a speciffic app",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(Stats(args[0]))
 	},
@@ -53,6 +61,7 @@ var statsCmd = &cobra.Command{
 
 var deleteCmd = &cobra.Command{
 	Use: "delete",
+	Short: "Delete an app",
 	Run: func(cmd *cobra.Command, args []string) {
 		Delete(args[0])
 	},
@@ -60,6 +69,7 @@ var deleteCmd = &cobra.Command{
 
 var initCmd = &cobra.Command{
 	Use: "init",
+	Short: "Setup a new app for deployment",
 	Run: func(cmd *cobra.Command, args []string) {
 		Init(args[0])
 	},
@@ -67,7 +77,8 @@ var initCmd = &cobra.Command{
 
 
 var restartCmd = &cobra.Command{
-	Use: "delete",
+	Use: "restart",
+	Short: "Update an app",
 	Run: func(cmd *cobra.Command, args []string) {
 		Restart(args[0])
 	},
@@ -93,6 +104,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
@@ -125,6 +137,6 @@ func initConfig() {
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+		fmt.Fprintln(os.Stdout, "Using config file:", viper.ConfigFileUsed())
 	}
 }

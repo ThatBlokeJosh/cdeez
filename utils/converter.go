@@ -12,7 +12,7 @@ func Convert(name string) (appName string) {
 	check(err)
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
-	var commands []string = []string{fmt.Sprintf("cd ./apps/%s", name)}
+	var commands []string = []string{fmt.Sprintf("cd ./apps/%s", name), "git pull > /dev/null 2>&1"}
 	i := 0
 
 	for scanner.Scan() {
