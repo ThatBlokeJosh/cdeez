@@ -23,8 +23,8 @@ func CreateApp(app App) string {
 }
 
 func RestartApp(app App) {
-	cmd := exec.Command("cd", fmt.Sprintf("./apps/%s;", app.Name), "git", "pull")
-	cmd.Run()
+	cmd, _ := exec.Command("cd", fmt.Sprintf("./apps/%s;", app.Name), "git", "pull").Output()
+	fmt.Println(cmd)
 }
 
 func Kill(pid string) {

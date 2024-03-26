@@ -58,6 +58,21 @@ var deleteCmd = &cobra.Command{
 	},
 }
 
+var initCmd = &cobra.Command{
+	Use: "init",
+	Run: func(cmd *cobra.Command, args []string) {
+		Init(args[0])
+	},
+}
+
+
+var restartCmd = &cobra.Command{
+	Use: "delete",
+	Run: func(cmd *cobra.Command, args []string) {
+		Restart(args[0])
+	},
+}
+
 func Check(err error) {
 	if err != nil {
 		os.Exit(1)
@@ -70,6 +85,8 @@ func Execute() {
 	rootCmd.AddCommand(deployCmd)
 	rootCmd.AddCommand(statsCmd)
 	rootCmd.AddCommand(deleteCmd)
+	rootCmd.AddCommand(initCmd)
+	rootCmd.AddCommand(restartCmd)
 	err := rootCmd.Execute()
 	Check(err)
 }

@@ -40,6 +40,16 @@ func Delete(name string) {
 }
 
 
+func Restart(name string) {
+	reqBody := []byte(fmt.Sprintf(`{"name": "%s"}`, name))
+	buf := bytes.NewReader(reqBody)	
+	req, err := http.NewRequest("PUT", "http://127.0.0.1:3000/apps", buf)
+	Check(err)
+	_, err = http.DefaultClient.Do(req)
+	Check(err)
+}
+
+
 func Stats(name string) string {
 	reqBody := []byte(fmt.Sprintf(`{"name": "%s"}`, name))
 	buf := bytes.NewReader(reqBody)	
