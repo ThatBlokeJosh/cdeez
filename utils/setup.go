@@ -46,7 +46,6 @@ func Setup(port string) {
 	if port == "" {
 		port = PORT
 	}
-	Convert("hello")
 	Startup()
 	http.HandleFunc("GET /apps", List)
 	http.HandleFunc("GET /apps/stats", Performance)
