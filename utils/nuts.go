@@ -28,7 +28,12 @@ func RestartApp(app App) {
 }
 
 func Kill(pid string) {
-	exec.Command("pkill", "-P", pid).Run()
+	exec.Command("bash", "scripts/kill.sh", pid).Run()
+}
+
+
+func KillDocker(tag string) {
+	exec.Command("bash", "scripts/dockerKill.sh", tag).Run()
 }
 
 func Stats(pid string) ([]byte) {

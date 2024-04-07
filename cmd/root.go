@@ -45,7 +45,11 @@ var deployCmd = &cobra.Command{
 	Use: "deploy",
 	Short: "Deploy a new app",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(Deploy(args[0], args[1]))
+		docker := false
+		if (len(args) >= 3 && args[2] == "docker") {
+			docker = true
+		}
+		fmt.Println(Deploy(args[0], args[1], docker))
 	},
 }
 

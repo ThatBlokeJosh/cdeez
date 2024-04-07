@@ -43,7 +43,11 @@ func DeleteApp(name string) {
 	var apps map[string]App = make(map[string]App)
 	decoder := json.NewDecoder(file)
 	decoder.Decode(&apps)
-	Kill(apps[name].Pid)
+	if (apps[name].Docker) {
+		KillDocker(apps[name].Name)
+	} else {
+		Kill(apps[name].Pid)
+	}
 	delete(apps, name)
 	toWrite, _ := json.Marshal(apps)
 	file, _ = os.Create("./apps/nuts.json")

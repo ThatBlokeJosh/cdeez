@@ -17,8 +17,12 @@ func Apps() string {
 	return string(body)
 }
 
-func Deploy(name, repo string) string {
-	reqBody := []byte(fmt.Sprintf(`{"name": "%s", "repo": "%s"}`, name, repo))
+func Deploy(name, repo string, docker bool) string {
+	d := "false"
+	if docker {
+		d = "true"
+	}
+	reqBody := []byte(fmt.Sprintf(`{"name": "%s", "repo": "%s", "docker": %s}`, name, repo, d))
 	buf := bytes.NewReader(reqBody)	
 	req, err := http.NewRequest("POST", "http://127.0.0.1:3000/apps", buf)
 	Check(err)
